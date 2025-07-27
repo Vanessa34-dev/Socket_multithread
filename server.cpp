@@ -17,13 +17,13 @@ int main(){
     server_address.sin_family=AF_INET;
 
     server_address.sin_port=htons(PORT);
-    
+
     //set an IP address to an available network interface
     server_address.sin_addr.s_addr= INADDR_ANY;
   
     //creation of TCP socket
-    int sockfd= socket(AF_INET,SOCK_STREAM,0);
-    if(sockfd==-1)
+    int server_socket= socket(AF_INET,SOCK_STREAM,0);
+    if(server_socket==-1)
     {
         std::cerr<< "Socket error";
         return 1;
@@ -32,15 +32,15 @@ int main(){
         std::cout<< "Socket is ok\n";
     }
 
-    if(bind(sockfd,(struct sockaddr*)&server_address,sizeof(server_address))<0)
+    if(bind(server_socket,(struct sockaddr*)&server_address,sizeof(server_address))<0)
     {
         std::cout<<"error bind\n";
-        close(sockfd);
+        close(server_socket);
         return 1;
     }else{
         std::cout<< "Bind() is ok\n";
     }
-    if(listen(sockfd,1)<0){
+    if(listen(server_socket,1)<0){
         std::cout<<"error listening on socket";
     }else{
         std::cout<<"listen() is OK, I'm wating for a connection"<<std::endl;
