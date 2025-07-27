@@ -46,4 +46,15 @@ int main(){
         std::cout<<"listen() is OK, I'm wating for a connection"<<std::endl;
     }
    
-}
+    struct sockaddr_in client_address;
+    socklen_t client_len=sizeof(client_address);
+    int client_socket= accept(server_socket,(struct sockaddr*)&client_address,&client_len);
+    if(client_socket<0){
+        std::cerr<<"accept failed()";
+        close(server_socket);
+        return 1;
+    }else{
+        std::cout<<"one client connected"<<std::endl;
+    }
+
+}   
